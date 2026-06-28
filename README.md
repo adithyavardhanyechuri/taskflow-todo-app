@@ -45,7 +45,7 @@ A full-stack, multi-page todo application with a React frontend and a Node.js/Ex
 ---
 # Features & Functionality
 
-## Page 1 — Todo List (`/`)
+## Page 1 — Todo List (DASHBOARD)
 
 ### Stats Dashboard
 Five live counters at the top of the page update after every action:
@@ -94,7 +94,7 @@ A sort dropdown with three modes:
 
 ---
 
-## Page 2 — Todo Detail (`/todo?id=<uuid>`)
+## Page 2 — Todo Detail 
 
 Accessed by clicking any todo row, or directly via URL with a `?id=` query parameter.
 
