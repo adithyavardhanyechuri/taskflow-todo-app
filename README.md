@@ -31,7 +31,7 @@ A full-stack, multi-page todo application with a React frontend and a Node.js/Ex
 ## Screenshots
 
 ### Main Page — Todo List
-![Main page](docs/screenshots/todo-list.png)
+![Main page](docs/screenshots/todo-dashboard.png)
 
 ### Adding a To-Do
 ![Creating a To-Do](docs/screenshots/todo-form.png)
