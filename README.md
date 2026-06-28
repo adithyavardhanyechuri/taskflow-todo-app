@@ -30,22 +30,23 @@ A full-stack, multi-page todo application with a React frontend and a Node.js/Ex
 
 ## Screenshots
 
-> Add screenshots to `docs/screenshots/` — they'll render below once added.
+### Main Page
+![Main page](docs/screenshots/.png)
 
-### Todo List
-![Todo List](docs/screenshots/todo-list.png)
+### Adding To-Do
+![Creating To-Do](docs/screenshots/todo-detail.png)
 
-### Todo Detail
-![Todo Detail](docs/screenshots/todo-detail.png)
+### To-Do detail
+![To-Do Detail](docs/screenshots/todo-form.png)
 
-### Create / Edit Form
-![Create Todo Form](docs/screenshots/todo-form.png)
+### Search To-Do
+![To-Do Detail](docs/screenshots/todo-form.png)
 
 ---
 
 ## Features
 
-### 📋 Todo List (`/`)
+### 📋 Todo List
 - Live stats dashboard — Total, Active, Done, Overdue, and High Priority counts
 - Create todos with title, description, priority, due date, tags, and subtasks
 - Color-coded priority indicator on every row (red = High, amber = Medium, green = Low)
@@ -55,7 +56,7 @@ A full-stack, multi-page todo application with a React frontend and a Node.js/Ex
 - Sort by Newest, Priority, or Due Date
 - Delete with confirmation, hover-to-reveal on the list
 
-### 📝 Todo Detail (`/todo?id=<uuid>`)
+### 📝 Todo Detail 
 - Full view with priority badge, status badge, description, tags, and metadata (created/updated timestamps, UUID)
 - Toggle the whole todo or individual subtasks, with a live progress bar
 - Edit in-place via a pre-filled form
@@ -87,4 +88,3 @@ Full request/response shapes: [docs/api.md](docs/api.md)
 
 ---
 
-## Project Structure
