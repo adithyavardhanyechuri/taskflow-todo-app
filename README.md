@@ -4,7 +4,7 @@ A full-stack, multi-page todo application with a React frontend and a Node.js/Ex
 
 ---
 
-## ✅ Brief Compliance
+
 
 | Requirement | Status |
 |---|---|
