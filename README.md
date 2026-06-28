@@ -8,13 +8,13 @@ A full-stack, multi-page todo application with a React frontend and a Node.js/Ex
 
 | Requirement | Status |
 |---|---|
-| Multi-page React app (not SPA) | ✔️ Two routed pages — see [Pages](#pages) |
-| Page 1: Todo list with features | ✔️ Stats, filtering, sorting, create, delete — see [Features](#features) |
-| Page 2: Single todo via query param | ✔️ `/todo?id=<uuid>` — see [Pages](#pages) |
+| Multi-page React app (not SPA) | ✔️ Two routed pages  |
+| Page 1: Todo list with features | ✔️ Stats, filtering, sorting, create, delete  |
+| Page 2: Single todo via query param | ✔️ `/todo?id=<uuid>`  |
 | Node.js + Express backend | ✔️ `backend/server.js` |
-| CRUD APIs for todos | ✔️ GET / POST / PUT / PATCH / DELETE — see [API Reference](docs/api.md) |
-| Data persisted (file or DB) | ✔️ Flat-file JSON store — `backend/todos.json` |
-| Features documented in `.md` files in repo | ✔️ [docs/features.md](docs/features.md) · [docs/api.md](docs/api.md) |
+| CRUD APIs for todos | ✔️ GET / POST / PUT / PATCH / DELETE  |
+| Data persisted (file or DB) | ✔️ Flat-file JSON store  |
+
 
 ---
 
@@ -161,6 +161,6 @@ If the URL contains an invalid or missing `?id=` parameter, the page shows a cle
 | `DELETE` | `/todos/:id` | Delete a todo |
 | `GET` | `/stats` | Aggregate counts (total/active/completed/high/overdue) |
 
-Full request/response shapes: [docs/api.md](docs/api.md)
+
 
 ---
