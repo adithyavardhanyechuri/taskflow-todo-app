@@ -1,6 +1,22 @@
 # TaskFlow — Todo Application
 
-A full-stack todo application with a React frontend and Node.js/Express backend.
+A full-stack, multi-page todo application with a React frontend and a Node.js/Express REST API backend.
+
+---
+
+## ✅ Brief Compliance
+
+| Requirement | Status |
+|---|---|
+| Multi-page React app (not SPA) | ✔️ Two routed pages — see [Pages](#pages) |
+| Page 1: Todo list with features | ✔️ Stats, filtering, sorting, create, delete — see [Features](#features) |
+| Page 2: Single todo via query param | ✔️ `/todo?id=<uuid>` — see [Pages](#pages) |
+| Node.js + Express backend | ✔️ `backend/server.js` |
+| CRUD APIs for todos | ✔️ GET / POST / PUT / PATCH / DELETE — see [API Reference](docs/api.md) |
+| Data persisted (file or DB) | ✔️ Flat-file JSON store — `backend/todos.json` |
+| Features documented in `.md` files in repo | ✔️ [docs/features.md](docs/features.md) · [docs/api.md](docs/api.md) |
+
+---
 
 ## Stack
 
@@ -12,63 +28,139 @@ A full-stack todo application with a React frontend and Node.js/Express backend.
 
 ---
 
-## Project Structure
+## Screenshots
 
-```
-todo-app/
-├── frontend/          # React + Vite app (port 5173)
-│   └── src/
-│       ├── pages/
-│       │   ├── TodoList.jsx      # Page 1 — all todos
-│       │   └── TodoDetail.jsx    # Page 2 — single todo (?id=...)
-│       ├── components/
-│       │   └── TodoForm.jsx      # Create / edit form
-│       └── api/
-│           └── todos.js          # Axios API helpers
-├── backend/           # Express REST API (port 3001)
-│   ├── server.js
-│   └── todos.json     # Flat-file data store
-└── docs/
-    ├── api.md         # API reference
-    └── features.md    # Feature documentation
-```
+### Main Page — Todo List
+![Main page](docs/screenshots/todo-dashboard.png)
+
+### Adding a To-Do
+![Creating a To-Do](docs/screenshots/todo-form.png)
+
+### To-Do Detail
+![To-Do Detail](docs/screenshots/todo-detail.png)
+
+### Search & Filter
+![Search To-Do](docs/screenshots/todo-search.png)
 
 ---
+# Features & Functionality
 
-## Quick Start
+## Page 1 — Todo List (`/`)
 
-### 1. Backend
+### Stats Dashboard
+Five live counters at the top of the page update after every action:
+- **Total** — total number of todos
+- **Active** — todos not yet completed
+- **Done** — completed todos
+- **Overdue** — active todos whose due date is in the past
+- **High Pri** — todos with high priority
 
-```bash
-cd backend
-npm install
-node server.js
-# API running at http://localhost:3001
-```
+### Create Todo
+Click **+ New Todo** to open a modal form with:
+- **Title** (required)
+- **Description** — optional free-text notes
+- **Priority** — Low / Medium / High, selected via button group
+- **Due Date** — date picker
+- **Tags** — type a tag and press Enter or comma to add; multiple tags allowed
+- **Subtasks** — press Enter after each subtask title to add it to the list
 
-### 2. Frontend
+### Todo List Item
+Each row shows:
+- **Checkbox** — click to toggle completion; checked items display with strikethrough and reduced opacity
+- **Title**
+- **Priority indicator** — color-coded label (red = High, amber = Medium, green = Low)
+- **Description preview** — truncated to one line
+- **Due date badge** — shows "Overdue" in red, "Today"/"Tomorrow" in amber, or the short date
+- **Subtask progress** — e.g. `☐ 2/5` when the todo has subtasks
+- **Tags** — pill badges
+- **Delete button** — appears on hover, asks for confirmation before deleting
+- Clicking the row navigates to the detail page for that todo
 
-```bash
-cd frontend
-npm install
-npm run dev
-# App running at http://localhost:5173
-```
-
-The Vite dev server proxies `/todos` and `/stats` to the backend, so no CORS config is needed in development.
-
----
-
-## Pages
-
-| Route | Description |
+### Filtering
+Three independent filter dropdowns:
+| Filter | Options |
 |---|---|
-| `/` | All todos — list, filter, sort, create, delete |
-| `/todo?id=<uuid>` | Single todo detail view — full info, subtasks, edit |
+| Status | All / Active / Completed |
+| Priority | Any Priority / High / Medium / Low |
+| Search | Free-text search across title and description |
+
+Filters can be combined (e.g. Active + High priority).
+
+### Sorting
+A sort dropdown with three modes:
+- **Newest** — most recently created first (default)
+- **Priority** — High → Medium → Low
+- **Due Date** — earliest due date first; todos without a due date appear last
 
 ---
 
-## Docs
+## Page 2 — Todo Detail (`/todo?id=<uuid>`)
 
-- [Features & Functionality](docs/features.md)
-- [API Reference](docs/api.md)
+Accessed by clicking any todo row, or directly via URL with a `?id=` query parameter.
+
+### What is displayed
+- Title (with strikethrough if completed)
+- Priority badge (color-coded, all-caps, monospace)
+- Status badge (ACTIVE or COMPLETED)
+- Description (if present)
+- Due date with human-readable context (Overdue / Due today / Tomorrow / short date)
+- Tags as pill badges
+- Subtask list with individual checkboxes and a progress bar
+- Metadata section: created-at, last-updated, and the UUID of the todo
+
+### Actions
+- **Toggle completion** — checkbox in the title row toggles the whole todo
+- **Toggle subtask** — click any subtask row to mark it done/undone; the progress bar updates instantly
+- **Edit** — opens the same form (pre-filled) used for creation; saves via PUT
+- **Delete** — deletes the todo and redirects back to the list
+- **← All Todos** — back link to the list page
+
+### Error state
+If the URL contains an invalid or missing `?id=` parameter, the page shows a clear error message and a back button.
+
+---
+
+## Data Model
+
+```json
+{
+  "id": "uuid-v4",
+  "title": "string (required)",
+  "description": "string",
+  "priority": "low | medium | high",
+  "dueDate": "YYYY-MM-DD | null",
+  "tags": ["string"],
+  "subtasks": [
+    { "id": "uuid-v4", "title": "string", "completed": false }
+  ],
+  "completed": false,
+  "createdAt": "ISO 8601",
+  "updatedAt": "ISO 8601"
+}
+```
+
+---
+
+## UX Details
+
+- Dark-themed design, works at all viewport widths
+- Delete on the list requires hover; delete on the detail page requires a browser confirmation dialog
+- The modal form closes when clicking the backdrop
+- Priority buttons highlight in the priority's own color (red/amber/green)
+- Tags and subtasks in the form are added via keyboard (Enter / comma) to keep hands on the keyboard
+## API Reference
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/todos` | List todos (filter by `status`, `priority`, `tag`, `q`) |
+| `GET` | `/todos/:id` | Get a single todo |
+| `POST` | `/todos` | Create a todo |
+| `PUT` | `/todos/:id` | Update a todo |
+| `PATCH` | `/todos/:id/toggle` | Toggle todo completion |
+| `PATCH` | `/todos/:id/subtasks/:subtaskId/toggle` | Toggle a subtask |
+| `DELETE` | `/todos/:id` | Delete a todo |
+| `GET` | `/stats` | Aggregate counts (total/active/completed/high/overdue) |
+
+Full request/response shapes: [docs/api.md](docs/api.md)
+
+---
