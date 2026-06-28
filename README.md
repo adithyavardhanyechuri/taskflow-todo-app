@@ -143,11 +143,12 @@ If the URL contains an invalid or missing `?id=` parameter, the page shows a cle
 
 ## UX Details
 
-- Dark-themed design, works at all viewport widths
+- Light, paper-toned design with color-coded priority tabs; works at all viewport widths
 - Delete on the list requires hover; delete on the detail page requires a browser confirmation dialog
 - The modal form closes when clicking the backdrop
 - Priority buttons highlight in the priority's own color (red/amber/green)
 - Tags and subtasks in the form are added via keyboard (Enter / comma) to keep hands on the keyboard
+  
 ## API Reference
 
 | Method | Endpoint | Description |
